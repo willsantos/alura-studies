@@ -1,4 +1,4 @@
-import React from 'react';
+import Item from './Item';
 import style from './List.module.scss';
 
 function List(){
@@ -17,10 +17,9 @@ function List(){
       <h2>Estudos do dia</h2>
       <ul>
         {tasks.map((item, index) => (
-          <li key={index} className={style.item}>
-            <h3>{item.task}</h3>
-            <span>{item.time}</span>
-          </li>
+          //sem especificar todos os atributos são passados para o componente filho
+          //se forem muitos dados de uma api, é melhor passar cada atributo
+          <Item key={index} {...item}/>
         ))}
       </ul>
     </aside>
