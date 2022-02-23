@@ -18,7 +18,8 @@
   },
   "devDependencies": {
     "commitizen": "^4.2.4",
-    "commitizen-emoji": "^1.0.5"
+    "commitizen-emoji": "^1.0.5",
+    "sass": "^1.49.8"
   },
   "config": {
     "commitizen": {
