@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { TimeToSeconds } from "../../common/utils/date";
 import { ITask } from "../../types/tasks";
@@ -8,22 +9,36 @@ import style from "./Stopwatch.module.scss";
 
 interface Props{
   selected: ITask | undefined;
+  completeTask: () => void;
 }
 
-function StopWatch({selected}:Props) {
+function StopWatch({selected,completeTask}:Props) {
   const [time, setTime] = useState<number>();
-  if(selected?.time){
-    setTime(TimeToSeconds(selected.time));
+  
+  useEffect(() =>{
+   if(selected?.time){
+     setTime(TimeToSeconds(selected.time));
+   }
+  },[selected]);
+
+  function countdown(counter:number =0){
+    setTimeout(() =>{
+      if(counter > 0){
+        setTime(counter -1);
+        return countdown(counter -1);
+      }
+      completeTask();
+    },1000);
   }
 
  return( 
     <div className={style.cronometro}>
       <p className={style.titulo}>Escolha um card e inicie o cronômetro</p>
-      Tempo: {time}
+      
     <div className={style.relogioWrapper}>
-      <Clock/>
+      <Clock time={time}/>
     </div>
-    <Button>
+    <Button onClick={()=>countdown(time)}>
       Começar!
     </Button>
   </div>);
